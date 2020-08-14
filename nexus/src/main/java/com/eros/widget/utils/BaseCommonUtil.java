@@ -127,6 +127,18 @@ public class BaseCommonUtil {
         }
         return topActivityClassName;
     }
+    public static String getTopActivityClassName(Context context) {
+        String topActivityClassName = null;
+        ActivityManager activityManager =
+            (ActivityManager) (context.getSystemService(Context
+                .ACTIVITY_SERVICE));
+        List<ActivityManager.RunningTaskInfo> runningTaskInfos = activityManager.getRunningTasks(1);
+        if (runningTaskInfos != null && runningTaskInfos.size() > 0) {
+            ComponentName f = runningTaskInfos.get(0).topActivity;
+            topActivityClassName = f.getClassName();
+        }
+        return topActivityClassName;
+    }
 
     public static boolean isAPPRunningForeground(Context context) {
         if (context != null) {
